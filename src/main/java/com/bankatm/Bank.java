@@ -11,6 +11,13 @@ public class Bank {
         accounts.add(new Account("98765","9876", 2000.0));
     }
 
-    
+    public Account getAccount(String accountNumber){
 
+        for (Account account : accounts){
+            if (account.getAccountNumber().equals(accountNumber)){
+                return account;
+            }
+        }
+        return null;
+    }
 }
