@@ -12,6 +12,27 @@ public class Account {
         this.balance = balance;
     }
 
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    public double getBalance() {
+        return this.balance;
+    }
+
+    public void deposit (double amount) {
+        if(amount > 0) {
+            this.balance += amount;
+        }
+    }
+
+    public boolean withdraw (double amount){
+        if(amount > 0 && balance  >= amount){
+            this.balance -= amount;
+            return true;
+        }
+        return false;
+    }
 
 
 }
