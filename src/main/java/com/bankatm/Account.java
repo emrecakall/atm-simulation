@@ -33,4 +33,11 @@ public class Account {
         }
         return false;
     }
+
+    public boolean validatePin(String enteredPin){
+        if(this.pin.equals(enteredPin)){
+            return true;
+        }
+        return false;
+    }
 }
