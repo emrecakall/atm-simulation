@@ -6,5 +6,4 @@ public class App {
         ATM atm = new ATM();
          atm.run();
     }
-
 }
