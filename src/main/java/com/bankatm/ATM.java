@@ -23,8 +23,21 @@ public class ATM {
 
             Account account = bank.getAccount(enteredNumber);
 
-            // Daha sonra değiştirilecek!
-            return null;
+            if(account == null){
+                System.out.println("Hesap bulunamadı. Lütfen tekrar deneyin.");
+                continue;
+            }
+
+            System.out.print("Şifrenizi giriniz: ");
+            String enteredPin = scanner.nextLine();
+
+
+            if(account.validatePin(enteredPin)){
+                return account;
+            }else{
+                System.out.println("Hatalı şifre! Lütfen tekrar deneyin.");
+            }
+
         }
     }
 
