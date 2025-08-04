@@ -17,6 +17,7 @@ public class ATM {
             if(currentAccount != null){
                 showMenuAndHandleActions(currentAccount);
             }
+            System.out.println();
 
         }
     }
@@ -30,6 +31,7 @@ public class ATM {
 
             if(account == null){
                 System.out.println("Hesap bulunamadı. Lütfen tekrar deneyin.");
+                System.out.println();
                 continue;
             }
 
@@ -41,6 +43,7 @@ public class ATM {
                 return account;
             }else{
                 System.out.println("Hatalı şifre! Lütfen tekrar deneyin.");
+                System.out.println();
             }
 
         }
@@ -50,42 +53,47 @@ public class ATM {
         while(true) {
 
             System.out.print("""
+                    
                     --- Menü ---
                     1. Bakiye Görüntüle
                     2. Para Yatır
                     3. Para Çek
                     4. Çıkış Yap
-                    Lütfen bir işlem seçiniz:
                     """);
+            System.out.print("Lütfen bir işlem seçiniz: ");
+
 
 
             int userChoise = scanner.nextInt();
             scanner.nextLine();
 
             switch (userChoise) {
-                case 1 -> System.out.println(currentAccount.getBalance());
+                case 1 -> System.out.println("\nBakiye: $"+ currentAccount.getBalance());
                 case 2 -> {
-                    System.out.println("Yatırmak istediğiniz tutarı giriniz:");
+                    System.out.print("\nYatırmak istediğiniz tutarı giriniz(İptal için 0'a basın): ");
                     double balance = scanner.nextDouble();
-                    scanner.nextLine();
-                    currentAccount.deposit(balance);
-                    System.out.println("Para yatırma işlemi başarılı.");
+                    if(balance >  0){
+                        currentAccount.deposit(balance);
+                        System.out.println("\nPara yatırma işlemi başarılı.");
+                    }
+
                 }
                 case 3 -> {
-                    System.out.println("Çekmek istediğiniz tutarı giriniz:");
+                    System.out.print("\nÇekmek istediğiniz tutarı giriniz(İptal için 0'a basın): ");
                     double balance = scanner.nextDouble();
-                    scanner.nextLine();
-                    if (currentAccount.withdraw(balance)) {
-                        System.out.println("İşlem başarılı.");
-                    } else {
-                        System.out.println("Geçersiz tutar!");
+                    if(balance > 0) {
+                        if (currentAccount.withdraw(balance)) {
+                            System.out.println("\nİşlem başarılı.");
+                        } else {
+                            System.out.println("\nYetersiz bakiye veya geçersiz tutar.");
+                        }
                     }
                 }
                 case 4 -> {
                     System.out.println("Çıkış yapılıyor...");
                     return;
                 }
-                default -> System.out.println("Geçerli bir işle numarası giriniz!");
+                default -> System.out.println("Geçerli bir işlem numarası giriniz!");
             }
         }
 
