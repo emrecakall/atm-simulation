@@ -1,4 +1,5 @@
 package com.bankatm;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ATM {
@@ -62,38 +63,43 @@ public class ATM {
                     """);
             System.out.print("Lütfen bir işlem seçiniz: ");
 
+            try{
+                int userChoise = scanner.nextInt();
+                scanner.nextLine();
 
+                switch (userChoise) {
+                    case 1 -> System.out.println("\nBakiye: $" + currentAccount.getBalance());
+                    case 2 -> {
+                        System.out.print("\nYatırmak istediğiniz tutarı giriniz(İptal için 0'a basın): ");
+                        double balance = scanner.nextDouble();
+                        if (balance > 0) {
+                            currentAccount.deposit(balance);
+                            System.out.println("\nPara yatırma işlemi başarılı.");
+                        }
 
-            int userChoise = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (userChoise) {
-                case 1 -> System.out.println("\nBakiye: $"+ currentAccount.getBalance());
-                case 2 -> {
-                    System.out.print("\nYatırmak istediğiniz tutarı giriniz(İptal için 0'a basın): ");
-                    double balance = scanner.nextDouble();
-                    if(balance >  0){
-                        currentAccount.deposit(balance);
-                        System.out.println("\nPara yatırma işlemi başarılı.");
                     }
-
-                }
-                case 3 -> {
-                    System.out.print("\nÇekmek istediğiniz tutarı giriniz(İptal için 0'a basın): ");
-                    double balance = scanner.nextDouble();
-                    if(balance > 0) {
-                        if (currentAccount.withdraw(balance)) {
-                            System.out.println("\nİşlem başarılı.");
-                        } else {
-                            System.out.println("\nYetersiz bakiye veya geçersiz tutar.");
+                    case 3 -> {
+                        System.out.print("\nÇekmek istediğiniz tutarı giriniz(İptal için 0'a basın): ");
+                        double balance = scanner.nextDouble();
+                        if (balance > 0) {
+                            if (currentAccount.withdraw(balance)) {
+                                System.out.println("\nİşlem başarılı.");
+                            } else {
+                                System.out.println("\nYetersiz bakiye veya geçersiz tutar.");
+                            }
                         }
                     }
+                    case 4 -> {
+                        System.out.println("Çıkış yapılıyor...");
+                        return;
+                    }
+                    default -> System.out.println("Geçerli bir işlem numarası giriniz!");
                 }
-                case 4 -> {
-                    System.out.println("Çıkış yapılıyor...");
-                    return;
-                }
-                default -> System.out.println("Geçerli bir işlem numarası giriniz!");
+            }
+
+            catch (InputMismatchException e){
+                System.out.println("\nHata: Lütfen sadece 1-4 arasında bir sayı giriniz.");
+                scanner.nextLine();
             }
         }
 
