@@ -1,8 +1,5 @@
 package com.bankatm;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Bank {
@@ -29,6 +26,21 @@ public class Bank {
             System.out.println("Bir hata oluştu.");
         }
 
+    }
+
+    public void saveAccountsToFile(){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("accounts.csv"))){
+            for(Account account: this.accounts){
+                String csvLine = account.toCsvString();
+                writer.write(csvLine);
+                writer.newLine();
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Dosya bulunamadı!");
+        }
+        catch(IOException e){
+            System.out.println("Dosyalar kaydedilirken bir sorun oluştu.");
+        }
     }
 
     public Account getAccount(String accountNumber){

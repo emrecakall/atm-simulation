@@ -74,6 +74,7 @@ public class ATM {
                         double balance = scanner.nextDouble();
                         if (balance > 0) {
                             currentAccount.deposit(balance);
+                            bank.saveAccountsToFile();
                             System.out.println("\nPara yatırma işlemi başarılı.");
                         }
 
@@ -83,6 +84,7 @@ public class ATM {
                         double balance = scanner.nextDouble();
                         if (balance > 0) {
                             if (currentAccount.withdraw(balance)) {
+                                bank.saveAccountsToFile();
                                 System.out.println("\nİşlem başarılı.");
                             } else {
                                 System.out.println("\nYetersiz bakiye veya geçersiz tutar.");

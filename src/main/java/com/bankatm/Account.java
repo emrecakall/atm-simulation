@@ -12,6 +12,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public String toCsvString(){
+        return this.accountNumber + "," + this.pin + "," + this.balance;
+    }
+
     public String getAccountNumber() {
         return this.accountNumber;
     }
