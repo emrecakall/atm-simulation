@@ -1,14 +1,34 @@
 package com.bankatm;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Bank {
     private ArrayList<Account> accounts;
 
     public Bank (){
-        accounts = new ArrayList<>();
-        accounts.add(new Account("12345","1234", 1000.0));
-        accounts.add(new Account("67890","6789", 500.0));
-        accounts.add(new Account("98765","9876", 2000.0));
+        this.accounts = new ArrayList<>();
+        loadAccountsFromFile();
+    }
+
+    private void loadAccountsFromFile(){
+        try(BufferedReader reader = new BufferedReader(new FileReader("accounts.csv"))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] parts = line.split(",");
+                Double balance = Double.parseDouble(parts[2]);
+                Account accountFromFile = new Account(parts[0], parts[1], balance);
+                this.accounts.add(accountFromFile);
+
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Dosya bulunamadı!");
+        }catch(IOException e){
+            System.out.println("Bir hata oluştu.");
+        }
+
     }
 
     public Account getAccount(String accountNumber){
